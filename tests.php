@@ -209,5 +209,60 @@ class GameTest extends TestCase{
         $this->assertEquals(270, $game->score());
         $game->roll(10);
         $this->assertEquals(300, $game->score());
+        // game is over, ignore any further rolls
+        $game->roll(10);
+        $this->assertEquals(300, $game->score());
+        $game->roll(10);
+        $this->assertEquals(300, $game->score());
+    }
+
+    public function testAllZeroesButFinalFrame(){
+        $game = new Game();
+
+        // frame 1
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+        // frame 2
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+        // frame 3
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+        // frame 4
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+        // frame 5
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+        // frame 6
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+        // frame 7
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+        // frame 8
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+        // frame 9
+        $game->roll(0);
+        $game->roll(0);
+        $this->assertEquals(0, $game->score());
+
+        // frame 10
+        $game->roll(10); // strike, 2 bonus rolls
+        $game->roll(10); // strike, no bonuses
+        $game->roll(10); // strike, no bonuses
+        $this->assertEquals(30, $game->score());
+        // game is over, ignore any further rolls
+        $game->roll(10);
+        $this->assertEquals(30, $game->score());
     }
 }

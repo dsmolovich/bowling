@@ -3,12 +3,19 @@
 namespace interview;
 
 class Frame{
+    protected $boxesNum = 2;
+
     private $number;
     private $previousFrame;
     private $nextFrame;
-    private $pins = [];
+    protected $pins = [];
     private $score;
 
+    /**
+     * Frame constructor.
+     * @param int $number
+     * @param Frame|null $previousFrame
+     */
     public function __construct($number, Frame $previousFrame = null){
         $this->number = $number;
         $this->previousFrame = $previousFrame;
@@ -80,15 +87,24 @@ class Frame{
         return $this->pins;
     }
 
+    /**
+     * @return bool
+     */
     public function isStrike(){
         return isset($this->pins[0]) && $this->pins[0] == 10;
     }
 
+    /**
+     * @return bool
+     */
     public function isSpare(){
         return array_sum($this->pins) == 10;
     }
 
+    /**
+     * @return bool
+     */
     public function isCompleted(){
-        return count($this->pins) >= 2;
+        return count($this->pins) >= $this->boxesNum;
     }
 }

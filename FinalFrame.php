@@ -6,17 +6,25 @@ require_once ('Frame.php');
 
 
 class FinalFrame extends Frame{
-    private $box3;
+    protected $boxesNum = 2;
 
     /**
-     * @return int
+     * @param int $box
      */
-    public function getBox3(): int
+    public function writePins(int $pins): Frame
     {
-        return $this->box3;
+        if($pins == 10 && empty($this->pins))
+            $this->boxesNum = 3;
+
+        return parent::writePins($pins);
     }
 
-    public function isSpare(){
-        throw \Exception('Final frame can\'t be a spare');
+    /**
+     * @return bool
+     */
+    public function isCompleted(){
+        $isCompleted = (count($this->pins) >= $this->boxesNum);
+
+        return $isCompleted;
     }
 }
