@@ -66,10 +66,21 @@ class Game{
      */
     private function scoreStrike(?Frame $frame): void
     {
-        if ($frame->getNextFrame() && $frame->getNextFrame()->isCompleted()) {
-            $pins = $frame->getNextFrame()->getPins();
+        $nextPins = [];
+        $nextFrame = $frame->getNextFrame();
+        do{
+            if( ! $nextFrame)
+                break;
+
+            foreach ($nextFrame->getPins() as $pin)
+                array_push($nextPins, $pin);
+
+            $nextFrame = $nextFrame->getNextFrame();
+        } while ( count($nextPins)<2 );
+
+        if( count($nextPins)>=2 ){
             $score = ($frame->getPreviousFrame() ? $frame->getPreviousFrame()->getScore() : 0) + array_sum($frame->getPins());
-            $score += array_sum($pins);
+            $score += array_sum($nextPins);
             $frame->setScore($score);
         }
     }

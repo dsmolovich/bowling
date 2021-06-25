@@ -178,39 +178,36 @@ class GameTest extends TestCase{
 
         // frame 1
         $game->roll(10);
-        $game->roll(10);
         // frame 2
-        $game->roll(10);
         $game->roll(10);
         // frame 3
         $game->roll(10);
-        $game->roll(10);
+        $this->assertEquals(30, $game->score());
         // frame 4
         $game->roll(10);
-        $game->roll(10);
+        $this->assertEquals(60, $game->score());
         // frame 5
         $game->roll(10);
-        $game->roll(10);
+        $this->assertEquals(90, $game->score());
         // frame 6
         $game->roll(10);
-        $game->roll(10);
+        $this->assertEquals(120, $game->score());
         // frame 7
         $game->roll(10);
-        $game->roll(10);
+        $this->assertEquals(150, $game->score());
         // frame 8
         $game->roll(10);
-        $game->roll(10);
+        $this->assertEquals(180, $game->score());
         // frame 9
         $game->roll(10);
-        $game->roll(10);
+        $this->assertEquals(210, $game->score());
         // frame 10
         $game->roll(10);
+        $this->assertEquals(240, $game->score());
         // extra 2 bonus rolls
         $game->roll(10);
+        $this->assertEquals(270, $game->score());
         $game->roll(10);
-
-
         $this->assertEquals(300, $game->score());
     }
-
 }
