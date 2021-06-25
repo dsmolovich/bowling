@@ -17,9 +17,9 @@ class Frame{
     /**
      * @param Frame $nextFrame
      */
-    public function setNextFrame(Frame $previousFrame): void
+    public function setNextFrame(Frame $nextFrame): void
     {
-        $this->previousFrame = $previousFrame;
+        $this->nextFrame = $nextFrame;
     }
 
     /**
@@ -28,18 +28,6 @@ class Frame{
     public function writePins(int $pins): Frame
     {
         array_push($this->pins, $pins);
-
-        // Strike:
-
-        // Spare:
-
-        $this->score = ($this->previousFrame ? $this->previousFrame->getScore() : 0) + array_sum($this->pins);
-
-        if(count($this->pins) >= 2){
-            $this->nextFrame = new Frame($this->number, $this);
-            return $this->nextFrame;
-        }
-
 
         return $this;
     }
@@ -53,17 +41,17 @@ class Frame{
     }
 
     /**
-     * @return Frame
+     * @return Frame|null
      */
-    public function getPreviousFrame(): Frame
+    public function getPreviousFrame()
     {
         return $this->previousFrame;
     }
 
     /**
-     * @return Frame
+     * @return Frame|null
      */
-    public function getNextFrame(): Frame
+    public function getNextFrame()
     {
         return $this->nextFrame;
     }
@@ -76,12 +64,31 @@ class Frame{
         return $this->score;
     }
 
+    /**
+     * @param mixed $score
+     */
+    public function setScore($score): void
+    {
+        $this->score = $score;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPins(): array
+    {
+        return $this->pins;
+    }
 
     public function isStrike(){
-        return $this->pins[0] == 10;
+        return isset($this->pins[0]) && $this->pins[0] == 10;
     }
 
     public function isSpare(){
         return array_sum($this->pins) == 10;
+    }
+
+    public function isCompleted(){
+        return count($this->pins) >= 2;
     }
 }

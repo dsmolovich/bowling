@@ -34,9 +34,10 @@ class GameTest extends TestCase{
 
         // frame 2
         $game->roll(3);
-        $this->assertEquals($game->score(), 13);
+        $this->assertEquals(13, $game->score()); // frame 1: 10 + 3
         $game->roll(2);
-        $this->assertEquals($game->score(), 18);
+        $this->assertEquals(18, $game->score()); // frame 2: 13 + 3 + 2
+
     }
 
     public function testStrikeScenario(){
@@ -49,7 +50,7 @@ class GameTest extends TestCase{
         // frame 2
         $game->roll(3);
         $game->roll(2);
-        $this->assertEquals($game->score(), 20);
+        $this->assertEquals(20, $game->score());
     }
 
     public function testLastStrike(){
